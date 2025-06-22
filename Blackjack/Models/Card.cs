@@ -18,6 +18,13 @@ public class Card
         string suitSide = $"│    {Suit}    │";
         string rankTop = $"│ {Rank}       │";
         string rankBot = $"│       {Rank} │";
+
+        if (Rank == "10")
+        {
+        rankTop = $"│ {Rank}      │";
+        rankBot = $"│      {Rank} │";
+        }
+
         string cardString = top + "\n" + rankTop + "\n" + side + "\n" + suitSide + "\n" + side + "\n" + rankBot + "\n" + bottom;
         Console.WriteLine(cardString);
     }
