@@ -1,5 +1,3 @@
-using System.Globalization;
-
 class Game
 {
     private int bet;
@@ -12,26 +10,44 @@ class Game
     {
         Console.Write("Welcome to blackjack.\nPlease enter your bet: \n");
         // bet = int.Parse(Console.ReadLine());
+
         Deal();
 
-        Console.Write("");
-
-
+        Console.WriteLine("Would you like to hit (h) or stand? (s)\n");
+        string input = Console.ReadLine();
+        while (input != "s")
+        {
+            if (input == "h")
+            {
+                Hit();
+                player.CleanHand();
+                dealer.CleanHand();
+            }
+            else if (input == "s")
+            {
+                Console.WriteLine("You are standing");
+            }
+            else
+            {
+                Console.WriteLine("Invalid input");
+            }
+            Console.WriteLine("Would you like to hit (h) or stand? (s)\n");
+            input = Console.ReadLine();
+        }
     }
 
     public void Deal()
     {
         // if no cards have been removed from the deck deal two cards and remove them from the deck
-        List<string> tmp = new List<string>();
-        tmp.Add("something");
         if (dealer.hand.Count == 0 && player.hand.Count == 0)
         {
             dealer.AddCard(deck.cards[random.Next(0, deck.cards.Count)]);
             dealer.AddCard(deck.cards[random.Next(0, deck.cards.Count)]);
             dealer.PrintHand();
 
-            // player.AddCard(deck.cards[random.Next(0, deck.cards.Count)]);
-            // player.PrintHand();
+            player.AddCard(deck.cards[random.Next(0, deck.cards.Count)]);
+            player.AddCard(deck.cards[random.Next(0, deck.cards.Count)]);
+            player.PrintHand();
         }
         else
         {
@@ -41,11 +57,7 @@ class Game
 
     private void Hit()
     {
-
-    }
-
-    private void Stand()
-    {
-
+        player.AddCard(deck.cards[random.Next(0, deck.cards.Count)]);
+        player.PrintHand();
     }
 }
