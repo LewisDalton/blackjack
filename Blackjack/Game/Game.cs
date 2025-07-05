@@ -5,6 +5,7 @@ class Game
     private Dealer dealer = new Dealer();
     private Player player = new Player();
     private Random random = new Random();
+    private bool gameOver = false;
 
     public void GameLoop()
     {
@@ -15,22 +16,23 @@ class Game
 
         Console.WriteLine("Would you like to hit (h) or stand? (s)\n");
         string input = Console.ReadLine();
-        while (input != "s")
+        while (gameOver == false)
         {
             if (input == "h")
             {
                 Hit();
-                player.CleanHand();
-                dealer.CleanHand();
             }
             else if (input == "s")
             {
                 Console.WriteLine("You are standing");
+                DealerHit();
             }
             else
             {
                 Console.WriteLine("Invalid input");
             }
+            player.CleanHand();
+            dealer.CleanHand();
             Console.WriteLine("Would you like to hit (h) or stand? (s)\n");
             input = Console.ReadLine();
         }
@@ -56,8 +58,19 @@ class Game
     }
 
     private void Hit()
+    // It would be a good idea to have the hit be one function with a argument for which object is "hitting" i.e. player or dealer
     {
         player.AddCard(deck.cards[random.Next(0, deck.cards.Count)]);
         player.PrintHand();
+    }
+
+    private void DealerHit()
+    {
+        Console.WriteLine("Hit dealer");
+        while (dealer.handNum < 17)
+        {
+            dealer.AddCard(deck.cards[random.Next(0, deck.cards.Count)]);
+            dealer.PrintHand();
+        }
     }
 }

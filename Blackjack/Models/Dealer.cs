@@ -15,12 +15,14 @@ public class Dealer
 
     public void CleanHand()
     {
+        handNum = 0;
         foreach (Card i in hand)
         {
             TranslateRank(i);
-            string cardRank = i.Rank; 
-            handNum = handNum + int.Parse(cardRank);
+            string cardRank = i.Rank;
+            handNum += int.Parse(cardRank);
         }
+        Console.WriteLine(handNum);
     } 
 
     private void TranslateRank(Card card)
